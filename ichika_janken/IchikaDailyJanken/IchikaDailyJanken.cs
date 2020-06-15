@@ -66,17 +66,9 @@ namespace IchikaDailyJanken
             try
             {
                 HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
-                request.ContentType = "application/octet-stream";
                 request.Method = "GET";
                 request.CookieContainer = m_cookieContainer;
-
-                if (headers != null)
-                {
-                    foreach (var header in headers)
-                    {
-                        request.Headers.Add(header.Key, header.Value);
-                    }
-                }
+                ParseHeader(request, headers);
 
                 request.BeginGetResponse(new AsyncCallback(OnFinishWebRequest), new Tuple<HttpWebRequest, NetworkRequestData>(request, networkRequestData));
             }
@@ -105,17 +97,9 @@ namespace IchikaDailyJanken
             try
             {
                 var request = WebRequest.Create(url) as HttpWebRequest;
-                request.ContentType = "application/octet-stream";
                 request.Method = "POST";
                 request.CookieContainer = m_cookieContainer;
-
-                if (headers != null)
-                {
-                    foreach (var header in headers)
-                    {
-                        request.Headers.Add(header.Key, header.Value);
-                    }
-                }
+                ParseHeader(request, headers);
 
                 if (body != null)
                 {
@@ -123,7 +107,7 @@ namespace IchikaDailyJanken
                     Stream requestStream = request.GetRequestStream();
                     requestStream.Write(body, 0, body.Length);
                 }
-                
+
                 request.BeginGetResponse(OnFinishWebRequest, new Tuple<HttpWebRequest, NetworkRequestData>(request, networkRequestData));
             }
             catch (Exception e)
@@ -163,6 +147,39 @@ namespace IchikaDailyJanken
                 m_webRequestResultQueue.Enqueue(new Tuple<byte[], Action<byte[]>>(memoryStream.ToArray(), param.Item2.callback));
             }
         }
+
+        void ParseHeader(HttpWebRequest request, Dictionary<string, string> headers)
+        {
+            if (headers == null)
+            {
+                return;
+            }
+            if (headers.TryGetValue("Content-Type", out var contentType))
+            {
+                request.ContentType = contentType;
+            }
+
+            if (headers.TryGetValue("Keep-Alive", out var keepAlive))
+            {
+                request.KeepAlive = keepAlive == "true" ? true : false;
+            }
+
+            if (headers.TryGetValue("User-Agent", out var userAgent))
+            {
+                request.UserAgent = userAgent;
+            }
+
+            if (headers.TryGetValue("Accept", out var accept))
+            {
+                request.Accept = accept;
+            }
+
+            if (headers.TryGetValue("Host", out var host))
+            {
+                request.Host = host;
+            }
+        }
+
         #endregion
     }
 
@@ -215,7 +232,7 @@ namespace IchikaDailyJanken
             }
 
             Task.WaitAll(subCharacterImages);
-            if (mainCharacterType == CharacterType.Unknown || Array.FindIndex(subCharacterImages, (item) => item.Result == null ) != -1)
+            if (mainCharacterType == CharacterType.Unknown || Array.FindIndex(subCharacterImages, (item) => item.Result == null) != -1)
             {
                 return null;
             }
@@ -268,7 +285,7 @@ namespace IchikaDailyJanken
 
             var matchedSubCharacterIncices = new List<int>();
             var characterTypeMatchCondition = characterTypeMatchConditionTable[mainCharacterType];
-            
+
             for (int i = 0; i < subCharacterImages.Length; ++i)
             {
                 var subCharacterImage = subCharacterImages[i].Result;
@@ -307,6 +324,7 @@ namespace IchikaDailyJanken
         #region Variable
         private static Dictionary<string, string> m_commonHeader = new Dictionary<string, string>
         {
+            {"Content-Type", "application/json"},
             {"Keep-Alive", "true"},
             {"Upgrade-Insecure-Requests", "1"},
             {"User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36"},
@@ -428,7 +446,7 @@ namespace IchikaDailyJanken
 
                 // Parse the correct pick character image URL.
                 var correctPickCharacterImageUrl = dataElem["correct_pic"].Value<string>();
-         
+
                 // Parse the kcsess value.
                 var kcsess = dataElem["kcsess"].Value<string>();
 
@@ -458,6 +476,11 @@ namespace IchikaDailyJanken
     {
         static void Main(string[] args)
         {
+            NetworkRequestHelper.Instance.OnRequestFailure += (networkRequestData) =>
+            {
+                Console.WriteLine($"An unexpected error occured! ({networkRequestData.url})");
+            };
+
             bool isJankenComplete = false;
             JubeatWebClient.Login(args[0], args[1], (loginStatus) =>
             {
@@ -466,6 +489,7 @@ namespace IchikaDailyJanken
                     if (jankenStatus == JubeatWebClient.JankenStatus.Success)
                     {
                         Console.WriteLine("Janken request complete!");
+                        Thread.Sleep(2000);
                     }
                     else
                     {
@@ -476,11 +500,6 @@ namespace IchikaDailyJanken
                     isJankenComplete = true;
                 });
             });
-
-            NetworkRequestHelper.Instance.OnRequestFailure += (networkRequestData) =>
-            {
-                Console.WriteLine($"An unexpected error occured! ({networkRequestData.url})");
-            };
 
             while (isJankenComplete == false)
             {
