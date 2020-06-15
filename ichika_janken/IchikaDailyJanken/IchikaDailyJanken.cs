@@ -484,21 +484,29 @@ namespace IchikaDailyJanken
             bool isJankenComplete = false;
             JubeatWebClient.Login(args[0], args[1], (loginStatus) =>
             {
-                JubeatWebClient.DoJanken((jankenStatus) =>
+                if (loginStatus == JubeatWebClient.LoginStatus.Success)
                 {
-                    if (jankenStatus == JubeatWebClient.JankenStatus.Success)
+                    JubeatWebClient.DoJanken((jankenStatus) =>
                     {
-                        Console.WriteLine("Janken request complete!");
-                        Thread.Sleep(2000);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Janken request failed. Maybe you have already done janken...");
-                        Thread.Sleep(5000);
-                    }
+                        if (jankenStatus == JubeatWebClient.JankenStatus.Success)
+                        {
+                            Console.WriteLine("Janken request complete!");
+                            Thread.Sleep(2000);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Janken request failed. Maybe you have already done janken...");
+                            Thread.Sleep(5000);
+                        }
 
-                    isJankenComplete = true;
-                });
+                        isJankenComplete = true;
+                    });
+                }
+                else if (loginStatus == JubeatWebClient.LoginStatus.InvalidEmailOrPassword)
+                {
+                    Console.WriteLine("Your email or password is incorrect. Please check it again.");
+                    Thread.Sleep(5000);
+                }
             });
 
             while (isJankenComplete == false)
