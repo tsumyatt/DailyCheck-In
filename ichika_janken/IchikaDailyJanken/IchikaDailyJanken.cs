@@ -276,11 +276,11 @@ namespace IchikaDailyJanken
         {
             var characterTypeMatchConditionTable = new Dictionary<CharacterType, (List<Point>, Color)>
             {
-                { CharacterType.Bomberman, (new List<Point>{new Point(49, 9), new Point(48, 34), new Point(57, 32), new Point(51, 20), new Point(31, 29)}, m_bombermanIdentifierColor) },
-                { CharacterType.Girl, (new List<Point>{new Point(41, 15), new Point(39, 10), new Point(45, 13), new Point(50, 14), new Point(42, 11)}, m_girlIdentifierColor) },
-                { CharacterType.Goemon, (new List<Point>{new Point(56, 51), new Point(49, 49), new Point(55, 60), new Point(59, 68), new Point(38, 72)}, m_goemonIdentifierColor) },
-                { CharacterType.Rabbit, (new List<Point>{new Point(81, 9), new Point(55, 11), new Point(38, 5), new Point(31, 18), new Point(69, 4)}, m_rabbitIdentifierColor) },
-                { CharacterType.Robot, (new List<Point>{new Point(37, 54), new Point(68, 32), new Point(27, 45), new Point(27, 49), new Point(48, 45)}, m_robotIdentifierColor) },
+                {CharacterType.Bomberman, (new List<Point>{new Point(49, 9), new Point(48, 34), new Point(57, 32), new Point(51, 20), new Point(31, 29)}, m_bombermanIdentifierColor)},
+                {CharacterType.Girl, (new List<Point>{new Point(41, 15), new Point(39, 10), new Point(45, 13), new Point(50, 14), new Point(42, 11)}, m_girlIdentifierColor)},
+                {CharacterType.Goemon, (new List<Point>{new Point(56, 51), new Point(49, 49), new Point(55, 60), new Point(59, 68), new Point(38, 72)}, m_goemonIdentifierColor)},
+                {CharacterType.Rabbit, (new List<Point>{new Point(81, 9), new Point(55, 11), new Point(38, 5), new Point(31, 18), new Point(69, 4)}, m_rabbitIdentifierColor)},
+                {CharacterType.Robot, (new List<Point>{new Point(37, 54), new Point(68, 32), new Point(27, 45), new Point(27, 49), new Point(48, 45)}, m_robotIdentifierColor)},
             };
 
             var matchedSubCharacterIncices = new List<int>();
