@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\ichika_janken\\IchikaJanken\\IchikaDailyJanken.csproj": {}
+    "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\ichika_janken\\IchikaDailyJanken\\IchikaDailyJanken.csproj": {}
   },
   "projects": {
-    "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\ichika_janken\\IchikaJanken\\IchikaDailyJanken.csproj": {
+    "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\ichika_janken\\IchikaDailyJanken\\IchikaDailyJanken.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\ichika_janken\\IchikaJanken\\IchikaDailyJanken.csproj",
+        "projectUniqueName": "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\ichika_janken\\IchikaDailyJanken\\IchikaDailyJanken.csproj",
         "projectName": "IchikaDailyJanken",
-        "projectPath": "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\ichika_janken\\IchikaJanken\\IchikaDailyJanken.csproj",
+        "projectPath": "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\ichika_janken\\IchikaDailyJanken\\IchikaDailyJanken.csproj",
         "packagesPath": "C:\\Users\\ggomdyu\\.nuget\\packages\\",
-        "outputPath": "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\ichika_janken\\IchikaJanken\\obj\\",
+        "outputPath": "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\ichika_janken\\IchikaDailyJanken\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"

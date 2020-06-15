@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "NdmSJheR1t/PVWP3uurmCLTAZEOySSV6IFzI+OMUBVbfjTP+SmLk+aL4QUOWF/CgfT3AweitCmF7pfAT0mobkA==",
+  "dgSpecHash": "2kBdamrtVteMKDp88tt6L7wBEgRgWCtnpSTnqlKnUDBLYIxDy/nfIvLEDb9QVdrZzneOqFpS93f3yrO0M1TJ+A==",
   "success": true,
-  "projectFilePath": "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\ichika_janken\\IchikaJanken\\IchikaDailyJanken.csproj",
+  "projectFilePath": "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\ichika_janken\\IchikaDailyJanken\\IchikaDailyJanken.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ggomdyu\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\ggomdyu\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
