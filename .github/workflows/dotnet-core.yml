@@ -18,7 +18,9 @@ jobs:
       with:
         dotnet-version: 3.1.301
     - name: Install dependencies
-      run: dotnet restore
+      run: |
+        cd Konami/NonoCardgame/NonoCardgame
+        dotnet restore
     - name: Build
       run: |
         cd Konami/NonoCardgame/NonoCardgame
