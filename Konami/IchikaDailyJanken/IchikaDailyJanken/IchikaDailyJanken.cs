@@ -506,6 +506,8 @@ namespace IchikaDailyJanken
                 {
                     Console.WriteLine("Your email or password is incorrect. Please check it again.");
                     Thread.Sleep(5000);
+                    
+                    isJankenComplete = true;
                 }
             });
 
