@@ -471,8 +471,6 @@ namespace NonoCardgame
 
                 return (kcsess, correctPickCharacterImageUrl, choiceCharacterImageUrlKeys);
             } while (false);
-
-            return null;
         }
         #endregion
     }
