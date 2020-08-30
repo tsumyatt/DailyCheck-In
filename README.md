@@ -12,7 +12,7 @@ python GmarketDailyCheckin.py your_id your_password
 dotnet IchikaDailyJanken.dll your_email your_password
 ```
 
-### NonoCardGame
+### NonoDailyCardGame
 ```
-dotnet NonoCardGame.dll your_email your_password
+dotnet NonoDailyCardGame.dll your_email your_password
 ```
