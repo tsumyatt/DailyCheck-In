@@ -1,0 +1,30 @@
+name: Run NonoCardGame
+
+on:
+  schedule:
+    - cron: '0 6 * * ?'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.301
+    - name: Install dependencies
+      run:  |
+        cd Konami/NonoCardgame/NonoCardgame/
+        dotnet restore
+    - name: Build
+      run: |
+        cd Konami/NonoCardgame/NonoCardgame/
+        dotnet build --configuration Release --no-restore
+    - name: Run NonoCardGame
+      run: |
+        cd Konami/NonoCardgame/NonoCardgame/
+        dotnet run your_email your_password
+        
