@@ -2,7 +2,7 @@ name: Run NonoCardGame
 
 on:
   schedule:
-    - cron: '0 0 * * ?'
+    - cron: '* * * * ?'
 
 jobs:
   build:
