@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "uiBbhONCCg+NGKkn6JA7qxtgW/9a1i/ILie9+3rF1YEU825fWFkwL+d2FrzUExirCbASrtV6DKR5P1uGZ6+nQg==",
+  "success": true,
+  "projectFilePath": "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\Konami\\IchikaDailyJanken\\IchikaDailyJanken\\IchikaDailyJanken.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ggomdyu\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\ggomdyu\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\ggomdyu\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\ggomdyu\\.nuget\\packages\\system.drawing.common\\4.7.0\\system.drawing.common.4.7.0.nupkg.sha512",
+    "C:\\Users\\ggomdyu\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.0.1\\microsoft.aspnetcore.app.ref.3.0.1.nupkg.sha512",
+    "C:\\Users\\ggomdyu\\.nuget\\packages\\microsoft.netcore.app.ref\\3.0.0\\microsoft.netcore.app.ref.3.0.0.nupkg.sha512",
+    "C:\\Users\\ggomdyu\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.0.3\\microsoft.netcore.app.host.win-x64.3.0.3.nupkg.sha512",
+    "C:\\Users\\ggomdyu\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\3.0.0\\microsoft.windowsdesktop.app.ref.3.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
