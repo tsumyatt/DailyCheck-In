@@ -2,9 +2,9 @@
 Do the daily check-in automatically on eCommerce sites, game sites, or anywhere!
 
 ## How to use
-### gmarket
+### GmarketDailyCheckin
 ```
-python gmarket_daily_checkin.py your_id your_password
+python GmarketDailyCheckin.py your_id your_password
 ```
 
 ### IchikaDailyJanken
@@ -14,5 +14,5 @@ dotnet IchikaDailyJanken.dll your_email your_password
 
 ### NonoCardGame
 ```
-dotnet IchikaDailyJanken.dll your_email your_password
+dotnet NonoCardGame.dll your_email your_password
 ```
