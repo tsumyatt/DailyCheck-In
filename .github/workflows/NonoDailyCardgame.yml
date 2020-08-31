@@ -1,4 +1,4 @@
-name: Run NonoCardGame
+name: Run NonoDailyCardgame
 
 on:
   schedule:
@@ -17,7 +17,7 @@ jobs:
         dotnet-version: 3.1.301
     - name: Build and run NonoCardGame
       run:  |
-        cd Konami/NonoCardgame/NonoCardgame/
+        cd Konami/NonoDailyCardgame/NonoDailyCardgame/
         dotnet restore
         dotnet build --configuration Release --no-restore
         dotnet run your_email your_password
