@@ -530,9 +530,7 @@ namespace NonoDailyCardGame
                 else if (loginStatus == ErrorCode.InvalidEmailOrPassword)
                 {
                     Console.WriteLine("Your email or password is incorrect. Please check it again.");
-                    Thread.Sleep(5000);
                     Environment.Exit((int)loginStatus);
-                    isCardGameComplete = true;
                 }
             });
 
