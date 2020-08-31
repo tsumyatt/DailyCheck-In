@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "q4jdfTjM6/fIdctaAPExej2nLJDzDQKSruoNgf77i2kd+t8JXag5CtRlnqDJiHpp4eHMgBPsJwwIcx0kZM5qrw==",
+  "dgSpecHash": "zZY7cdtlKY+J8TxfQx/Ndb+Lmv+6vAtWPWxUVjyMicYek/GuDr4orTflJoHvua3sIR4wlcoo1BUPpsuxgx9yRA==",
   "success": true,
-  "projectFilePath": "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\Konami\\NonoDailyCardgame\\NonoCardgame\\NonoDailyCardgame.csproj",
+  "projectFilePath": "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\Konami\\NonoDailyCardgame\\NonoDailyCardgame\\NonoDailyCardgame.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ggomdyu\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\ggomdyu\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",

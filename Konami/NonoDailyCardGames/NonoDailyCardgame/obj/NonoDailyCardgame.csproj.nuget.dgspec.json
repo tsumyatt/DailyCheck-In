@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\Konami\\NonoDailyCardgame\\NonoCardgame\\NonoDailyCardgame.csproj": {}
+    "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\Konami\\NonoDailyCardgame\\NonoDailyCardgame\\NonoDailyCardgame.csproj": {}
   },
   "projects": {
-    "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\Konami\\NonoDailyCardgame\\NonoCardgame\\NonoDailyCardgame.csproj": {
+    "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\Konami\\NonoDailyCardgame\\NonoDailyCardgame\\NonoDailyCardgame.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\Konami\\NonoDailyCardgame\\NonoCardgame\\NonoDailyCardgame.csproj",
+        "projectUniqueName": "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\Konami\\NonoDailyCardgame\\NonoDailyCardgame\\NonoDailyCardgame.csproj",
         "projectName": "NonoDailyCardgame",
-        "projectPath": "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\Konami\\NonoDailyCardgame\\NonoCardgame\\NonoDailyCardgame.csproj",
+        "projectPath": "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\Konami\\NonoDailyCardgame\\NonoDailyCardgame\\NonoDailyCardgame.csproj",
         "packagesPath": "C:\\Users\\ggomdyu\\.nuget\\packages\\",
-        "outputPath": "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\Konami\\NonoDailyCardgame\\NonoCardgame\\obj\\",
+        "outputPath": "D:\\Users\\ggomdyu\\Desktop\\Programming\\Git\\DailyCheck-In\\Konami\\NonoDailyCardgame\\NonoDailyCardgame\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"

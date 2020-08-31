@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
-namespace NonoDailyCardgame
+namespace NonoDailyCardGame
 {
     public class NetworkRequestData
     {
@@ -475,7 +475,7 @@ namespace NonoDailyCardgame
         #endregion
     }
 
-    class NonoDailyCardgame
+    class NonoDailyCardGame
     {
         static void Main(string[] args)
         {
