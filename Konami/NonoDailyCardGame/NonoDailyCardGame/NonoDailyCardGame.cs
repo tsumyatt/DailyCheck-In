@@ -398,20 +398,40 @@ namespace NonoDailyCardGame
             {
                 var html = Encoding.UTF8.GetString(response);
 
-                var cardGameTokenStartOffset = html.IndexOf("id_initial_token\" type=\"hidden\" value=\"");
-                if (cardGameTokenStartOffset == -1)
+                // Parse the token
+                string token = null;
                 {
-                    onRequestComplete?.Invoke(CardGameStatus.Failure);
-                    return;
+                    var tokenStartOffset = html.IndexOf("\"id_initial_token");
+                    if (tokenStartOffset == -1)
+                    {
+                        onRequestComplete?.Invoke(CardGameStatus.Failure);
+                        return;
+                    }
+
+                    tokenStartOffset = html.IndexOf("value=\"", tokenStartOffset) + 7;
+
+                    var tokenEndOffset = html.IndexOf('"', tokenStartOffset);
+                    token = html.Substring(tokenStartOffset, tokenEndOffset - tokenStartOffset);
                 }
 
-                cardGameTokenStartOffset += 39;
+                // Parse the c_type
+                string ctype = null;
+                {
+                    var ctypeStartOffset = html.IndexOf("c_type");
+                    if (ctypeStartOffset == -1)
+                    {
+                        onRequestComplete?.Invoke(CardGameStatus.Failure);
+                        return;
+                    }
+
+                    ctypeStartOffset = html.IndexOf("value", ctypeStartOffset) + 6;
+
+                    var ctypeEndOffset = html.IndexOf(';', ctypeStartOffset);
+                    ctype = html.Substring(ctypeStartOffset, ctypeEndOffset - ctypeStartOffset);
+                }
 
                 var doCardGameUrl = "https://p.eagate.573.jp/game/bemani/wbr2020/01/card_save.html";
-                var cardGameTokenEndOffset = html.IndexOf('"', cardGameTokenStartOffset);
-                string cardGameToken = html.Substring(cardGameTokenStartOffset, cardGameTokenEndOffset - cardGameTokenStartOffset);
-                byte[] body = Encoding.UTF8.GetBytes($"c_type=1&c_id=0&t_id={cardGameToken}");
-
+                byte[] body = Encoding.UTF8.GetBytes($"c_type={ctype}&c_id=0&t_id={token}");
                 NetworkRequestHelper.Instance.Post(doCardGameUrl, body, m_commonHeader, (response2) =>
                 {
                     onRequestComplete?.Invoke(CardGameStatus.Success);
