@@ -11,7 +11,14 @@ using Newtonsoft.Json.Linq;
 
 namespace NonoDailyCardGame
 {
-    public class NetworkRequestData
+    enum ErrorCode
+    {
+        Success = 0,
+        Failure = 1,
+        InvalidEmailOrPassword = 3
+    }
+
+    class NetworkRequestData
     {
         public string url;
         public byte[] body;
@@ -20,7 +27,7 @@ namespace NonoDailyCardGame
         public Action<byte[]> callback;
     }
 
-    public class NetworkRequestHelper
+    class NetworkRequestHelper
     {
         #region Property
         public static NetworkRequestHelper Instance { get; } = new NetworkRequestHelper();
@@ -178,6 +185,12 @@ namespace NonoDailyCardGame
             {
                 request.Host = host;
             }
+
+            if (headers.TryGetValue("Referer", out var referer))
+            {
+                request.Referer = referer;
+            }
+
         }
 
         #endregion
@@ -304,23 +317,8 @@ namespace NonoDailyCardGame
         #endregion
     }
 
-    class JubeatWebClient
+    class KonamiWeb
     {
-        #region Enum
-        public enum LoginStatus
-        {
-            Success,
-            Failure,
-            InvalidEmailOrPassword,
-        }
-
-        public enum CardGameStatus
-        {
-            Success,
-            Failure,
-        }
-        #endregion
-
         #region Variable
         private static Dictionary<string, string> m_commonHeader = new Dictionary<string, string>
         {
@@ -336,14 +334,14 @@ namespace NonoDailyCardGame
         #endregion
 
         #region Method
-        public static void Login(string userId, string userPassword, Action<LoginStatus> onLoginComplete)
+        public static void Login(string userId, string userPassword, Action<ErrorCode> onLoginComplete)
         {
             RequestGenerateKcaptcha((response) =>
             {
                 var parsedData = ParseKcaptchaJson(Encoding.UTF8.GetString(response));
                 if (parsedData == null)
                 {
-                    onLoginComplete(LoginStatus.Failure);
+                    onLoginComplete(ErrorCode.Failure);
                     return;
                 }
 
@@ -358,7 +356,7 @@ namespace NonoDailyCardGame
                 var matchedChoiceCharacterIndices = captchaSolver.SolveProblem();
                 if (matchedChoiceCharacterIndices == null)
                 {
-                    onLoginComplete(LoginStatus.Failure);
+                    onLoginComplete(ErrorCode.Failure);
                     return;
                 }
 
@@ -382,17 +380,17 @@ namespace NonoDailyCardGame
                     var failCode = loginPageJson["fail_code"].Value<string>();
                     if (int.TryParse(failCode, out var parsedFailCode))
                     {
-                        onLoginComplete(parsedFailCode == 0 ? LoginStatus.Success : parsedFailCode == 200 ? LoginStatus.InvalidEmailOrPassword : LoginStatus.Failure);
+                        onLoginComplete(parsedFailCode == 0 ? ErrorCode.Success : parsedFailCode == 200 ? ErrorCode.InvalidEmailOrPassword : ErrorCode.Failure);
                     }
                     else
                     {
-                        onLoginComplete(LoginStatus.Failure);
+                        onLoginComplete(ErrorCode.Failure);
                     }
                 });
             });
         }
 
-        public static void DoCardGame(Action<CardGameStatus> onRequestComplete)
+        public static void DoCardGame(Action<ErrorCode> onRequestComplete)
         {
             RequestCardGamePage((response) =>
             {
@@ -404,7 +402,7 @@ namespace NonoDailyCardGame
                     var tokenStartOffset = html.IndexOf("\"id_initial_token");
                     if (tokenStartOffset == -1)
                     {
-                        onRequestComplete?.Invoke(CardGameStatus.Failure);
+                        onRequestComplete?.Invoke(ErrorCode.Failure);
                         return;
                     }
 
@@ -420,21 +418,28 @@ namespace NonoDailyCardGame
                     var ctypeStartOffset = html.IndexOf("c_type");
                     if (ctypeStartOffset == -1)
                     {
-                        onRequestComplete?.Invoke(CardGameStatus.Failure);
+                        onRequestComplete?.Invoke(ErrorCode.Failure);
                         return;
                     }
 
-                    ctypeStartOffset = html.IndexOf("value", ctypeStartOffset) + 6;
+                    ctypeStartOffset = html.IndexOf("value=", ctypeStartOffset) + 6;
 
                     var ctypeEndOffset = html.IndexOf(';', ctypeStartOffset);
                     ctype = html.Substring(ctypeStartOffset, ctypeEndOffset - ctypeStartOffset);
                 }
 
                 var doCardGameUrl = "https://p.eagate.573.jp/game/bemani/wbr2020/01/card_save.html";
-                byte[] body = Encoding.UTF8.GetBytes($"c_type={ctype}&c_id=0&t_id={token}");
-                NetworkRequestHelper.Instance.Post(doCardGameUrl, body, m_commonHeader, (response2) =>
+                var body = Encoding.UTF8.GetBytes($"c_type={ctype}&c_id=0&t_id={token}");
+
+                var clonedHeader = new Dictionary<string, string>(m_commonHeader)
                 {
-                    onRequestComplete?.Invoke(CardGameStatus.Success);
+                    ["Content-Type"] = "application/x-www-form-urlencoded",
+                    ["Referer"] = "https://p.eagate.573.jp/game/bemani/wbr2020/01/card.html"
+                };
+
+                NetworkRequestHelper.Instance.Post(doCardGameUrl, body, clonedHeader, (response2) =>
+                {
+                    onRequestComplete?.Invoke(ErrorCode.Success);
                 });
             });
         }
@@ -455,7 +460,7 @@ namespace NonoDailyCardGame
             url += $"login_id={userEmail}";
             url += $"&pass_word={userPassword}";
             url += $"&otp=";
-            url += $"&resrv_url={"/gate/p/login_complete.html"}";
+            url += $"&resrv_url=/gate/p/login_complete.html";
             url += $"&captcha={captchaKey}";
 
             NetworkRequestHelper.Instance.Post(url, null, m_commonHeader, onRequestComplete);
@@ -476,11 +481,11 @@ namespace NonoDailyCardGame
                 var kcsess = dataElem["kcsess"].Value<string>();
 
                 // Parse the choice list character image URL.
-                var choiseListArrayElem = dataElem["choicelist"];
+                var choiceListArrayElem = dataElem["choicelist"];
                 var choiceCharacterImageUrlKeys = new List<String>();
-                foreach (var choiseListElem in choiseListArrayElem.Children())
+                foreach (var choiceListElem in choiceListArrayElem.Children())
                 {
-                    var choiceCharacterImageUrlKey = choiseListElem["key"].Value<string>();
+                    var choiceCharacterImageUrlKey = choiceListElem["key"].Value<string>();
                     if (string.IsNullOrEmpty(choiceCharacterImageUrlKey))
                     {
                         continue;
@@ -505,31 +510,31 @@ namespace NonoDailyCardGame
             };
 
             bool isCardGameComplete = false;
-            JubeatWebClient.Login(args[0], args[1], (loginStatus) =>
+            KonamiWeb.Login(args[0], args[1], (loginStatus) =>
             {
-                if (loginStatus == JubeatWebClient.LoginStatus.Success)
+                if (loginStatus == ErrorCode.Success)
                 {
-                    JubeatWebClient.DoCardGame((cardGameStatus) =>
+                    KonamiWeb.DoCardGame((cardGameStatus) =>
                     {
-                        if (cardGameStatus == JubeatWebClient.CardGameStatus.Success)
+                        if (cardGameStatus == ErrorCode.Success)
                         {
                             Console.WriteLine("DoCardGame request complete!");
                             Thread.Sleep(2000);
+                            isCardGameComplete = true;
                         }
                         else
                         {
                             Console.WriteLine("DoCardGame request failed. Maybe you have already done...");
                             Thread.Sleep(5000);
+                            Environment.Exit((int)cardGameStatus);
                         }
-
-                        isCardGameComplete = true;
                     });
                 }
-                else if (loginStatus == JubeatWebClient.LoginStatus.InvalidEmailOrPassword)
+                else if (loginStatus == ErrorCode.InvalidEmailOrPassword)
                 {
                     Console.WriteLine("Your email or password is incorrect. Please check it again.");
                     Thread.Sleep(5000);
-                    isCardGameComplete = true;
+                    Environment.Exit((int)loginStatus);
                 }
             });
 
