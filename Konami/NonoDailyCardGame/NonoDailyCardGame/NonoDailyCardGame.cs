@@ -519,15 +519,12 @@ namespace NonoDailyCardGame
                         if (cardGameStatus == ErrorCode.Success)
                         {
                             Console.WriteLine("DoCardGame request complete!");
-                            Thread.Sleep(2000);
-                            isCardGameComplete = true;
                         }
                         else
                         {
                             Console.WriteLine("DoCardGame request failed. Maybe you have already done...");
-                            Thread.Sleep(5000);
-                            Environment.Exit((int)cardGameStatus);
                         }
+                        isCardGameComplete = true;
                     });
                 }
                 else if (loginStatus == ErrorCode.InvalidEmailOrPassword)
@@ -535,6 +532,7 @@ namespace NonoDailyCardGame
                     Console.WriteLine("Your email or password is incorrect. Please check it again.");
                     Thread.Sleep(5000);
                     Environment.Exit((int)loginStatus);
+                    isCardGameComplete = true;
                 }
             });
 
